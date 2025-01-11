@@ -4,11 +4,9 @@ import java.util.EnumMap;
 
 public class Player {
     private Card[] hand;
-    private final int position;
     private final EnumMap<Chip, Integer> chips;
 
-    public Player(int position) {
-        this.position = position;
+    public Player() {
         this.chips = new EnumMap<>(Chip.class);
 
         for (Chip chip : Chip.values()) {
@@ -19,10 +17,6 @@ public class Player {
     public void dealIn(Card cardOne, Card cardTwo) {
         hand[0] = cardOne;
         hand[1] = cardTwo;
-    }
-
-    public int getPosition() {
-        return position;
     }
 
     public void addChips(int[] amount) {
