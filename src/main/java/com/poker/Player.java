@@ -3,10 +3,13 @@ package com.poker;
 import java.util.EnumMap;
 
 public class Player {
+    private final String name;
     private Card[] hand;
     private final EnumMap<Chip, Integer> chips;
 
-    public Player() {
+    public Player(String name) {
+        this.name = name;
+        this.hand = new Card[2];
         this.chips = new EnumMap<>(Chip.class);
 
         for (Chip chip : Chip.values()) {
@@ -35,5 +38,23 @@ public class Player {
         chips.put(Chip.TWENTY_FIVE, chips.get(Chip.TWENTY_FIVE) - amount[3]);
         chips.put(Chip.FIFTY, chips.get(Chip.FIFTY) - amount[4]);
         chips.put(Chip.HUNDRED, chips.get(Chip.HUNDRED) - amount[5]);
+    }
+
+    public int getTotal() {
+        int total = 0;
+        for (Chip chip : chips.keySet()) {
+            total += chip.getValue() * chips.get(chip);
+        }
+
+        return total;
+    }
+
+    public String getHand() {
+        return this.hand[0].toString() + " and " + this.hand[1].toString();
+    }
+
+    @Override
+    public String toString() {
+        return this.name + ": $" + getTotal(); 
     }
 }
