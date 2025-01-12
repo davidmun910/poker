@@ -3,7 +3,6 @@ package com.poker;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.ArrayList;
 
 import com.Constants;
 
@@ -13,23 +12,16 @@ public class Table {
     private final List<Player> players;
     private final EnumMap<Chip, Integer> pot; 
 
-    public Table(int numPlayers, String[] names, int[][] buyIn) {
-        this.numPlayers = numPlayers;
-        currPlayerIdx = ThreadLocalRandom.current().nextInt(0, numPlayers);
-        players = new ArrayList<>(); 
-        pot = new EnumMap<>(Chip.class);
+    public Table(List<Player> players) {
+        this.numPlayers = players.size();
+        this.currPlayerIdx = ThreadLocalRandom.current().nextInt(0, numPlayers);
+        this.players = players; 
+        this.pot = new EnumMap<>(Chip.class);
 
         for (Chip chip : Chip.values()) {
             pot.put(chip, 0);
         }
-
-        for (int i = 0; i < numPlayers; ++i) {
-            Player player = new Player(names[i]);
-            player.addChips(buyIn[i]);
-            System.out.println(player.toString());
-            players.add(player);
-        }
-    }
+   }
 
     public int addPlayer(Player player) {
         if (numPlayers >= Constants.MAX_PLAYERS)

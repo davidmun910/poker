@@ -7,14 +7,15 @@ public class Player {
     private Card[] hand;
     private final EnumMap<Chip, Integer> chips;
 
-    public Player(String name) {
+    public Player(String name, int[] buyIn) {
         this.name = name;
         this.hand = new Card[2];
         this.chips = new EnumMap<>(Chip.class);
-
+        
         for (Chip chip : Chip.values()) {
             chips.put(chip, 0);
         }
+        this.addChips(buyIn);
     }
 
     public void dealIn(Card cardOne, Card cardTwo) {

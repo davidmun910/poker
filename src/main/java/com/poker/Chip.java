@@ -18,10 +18,6 @@ public enum Chip {
         return this.value;
     }
 
-    public static int getNumChips() {
-        return 6;
-    }
-    
     @Override
     public String toString() {
         return "$" + value;

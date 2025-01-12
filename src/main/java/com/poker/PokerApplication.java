@@ -1,24 +1,26 @@
 package com.poker;
 
-// import com.Constants;
+import java.util.List;
+import java.util.ArrayList;
+
+import com.Constants;
+
 
 public class PokerApplication {
     public static void main(String[] args) {
-        int numPlayers = 4;
-        int[][] buyIns = new int[numPlayers][Chip.getNumChips()];
-        String[] names = new String[numPlayers];
+        List<Player> players = new ArrayList<>();
 
-        for (int i = 0; i < numPlayers; ++i) {
-            names[i] = "Kush Gohil";
-            for (int j = 0; j < Chip.getNumChips(); ++j) {
-                buyIns[i][j] = 5;
-            }
-        }
+        players.add(new Player("David M.", Constants.STANDARD_BUY_IN));
+        players.add(new Player("Kavin M.", Constants.STANDARD_BUY_IN));
+        players.add(new Player("Kush G.", Constants.STANDARD_BUY_IN));
+        players.add(new Player("Krish A.", Constants.STANDARD_BUY_IN));
 
         Deck deck = new Deck();  
-        Table table = new Table(numPlayers, names, buyIns);
-
-        table.getCurrPlayer().dealIn(deck.dealCard(), deck.dealCard());
-        System.out.println(table.getCurrPlayer().getHand());        
+        Table table = new Table(players);
+        
+        for (Player player : table.getPlayers()) {
+            player.dealIn(deck.dealCard(), deck.dealCard());
+            System.out.println(player.toString() + " " + player.getHand());
+        }
     }
 }
