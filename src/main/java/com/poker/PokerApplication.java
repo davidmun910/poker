@@ -20,6 +20,16 @@ public class PokerApplication {
 
         table.addPlayer(new Player("Sheryl J", Constants.STANDARD_BUY_IN));
         table.dealCards();
+        
+        for (Player player : table.getPlayers()) {
+            System.out.println(player.toString());
+            Card[] cards = player.getHand();
+            System.out.println(cards[0] + " | " + cards[1]);
+        }
+
+        System.out.println("************************************************");
+        System.out.println(table.getPot());
+        System.out.println("************************************************");
 
         int[] bet = { 1, 1, 1, 1, 1, 1 };
 
@@ -32,7 +42,10 @@ public class PokerApplication {
         System.out.println("************************************************");
         System.out.println(table.getPot());
         System.out.println("************************************************");
+
         table.givePool(table.getCurrPlayer());
+
+        System.out.println("************************************************");
         System.out.println(table.getPot());
         System.out.println("************************************************");
 
