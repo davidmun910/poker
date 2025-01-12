@@ -20,6 +20,12 @@ public class Deck {
         this.shuffleCards();
     }
 
+    public void resetCards() {
+        cards.addAll(usedCards);
+        usedCards.clear();
+        this.shuffleCards();
+    }
+
     public void shuffleCards() {
         Collections.shuffle(this.cards);
     }

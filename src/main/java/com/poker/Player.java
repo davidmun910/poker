@@ -2,6 +2,8 @@ package com.poker;
 
 import java.util.EnumMap;
 
+import com.Constants;
+
 public class Player {
     private final String name;
     private Card[] hand;
@@ -41,6 +43,19 @@ public class Player {
         chips.put(Chip.HUNDRED, chips.get(Chip.HUNDRED) - amount[5]);
     }
 
+    public int[] removeAllChips() {
+        int[] total = new int[Constants.TOTAL_NUM_CHIPS];
+        int idx = 0;
+
+        for (Chip chip : chips.keySet()) {
+            total[idx] = chips.get(chip);
+            chips.remove(chip);
+            ++idx;
+        }
+
+        return total;
+    }
+
     public int getTotal() {
         int total = 0;
         for (Chip chip : chips.keySet()) {
@@ -50,8 +65,8 @@ public class Player {
         return total;
     }
 
-    public String getHand() {
-        return this.hand[0].toString() + " and " + this.hand[1].toString();
+    public Card[] getHand() {
+        return this.hand;
     }
 
     @Override
