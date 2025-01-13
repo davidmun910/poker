@@ -1,59 +1,42 @@
 package com.poker;
 
-import java.util.List;
-import java.util.ArrayList;
-
-import com.Constants;
-
-
 public class PokerApplication {
     public static void main(String[] args) {
-        List<Player> players = new ArrayList<>();
-        Deck deck = new Deck();
+        Table table = new Table();
+        GameState gameState = GameState.getInstance();
 
-        players.add(new Player("David M", Constants.STANDARD_BUY_IN));
-        players.add(new Player("Kavin M", Constants.STANDARD_BUY_IN));
-        players.add(new Player("Kush G", Constants.STANDARD_BUY_IN));
-        players.add(new Player("Krish A", Constants.STANDARD_BUY_IN));
+        gameState.addPlayer(new Player("Alice", new int[]{10, 5, 2, 1, 0, 0}));
+        gameState.addPlayer(new Player("Bob", new int[]{10, 5, 2, 1, 0, 0}));
+        gameState.addPlayer(new Player("Charlie", new int[]{10, 5, 2, 1, 0, 0}));
+        gameState.addPlayer(new Player("Diana", new int[]{10, 5, 2, 1, 0, 0}));
 
-        Table table = new Table(players, deck);
+        for (int round = 1; round <= 3; round++) {
+            System.out.println("Round " + round);
+            table.getRoleManager().assignRoles();
+            table.dealCards();
+            for (Player player : gameState.getPlayers()) {
+                if (player.getRole() == Role.BIG_BLIND) {
+                    table.takeBet(player, new int[] { 2, 0, 0, 0, 0, 0 });
+                    continue;
+                }
+                if (player.getRole() == Role.SMALL_BLIND) {
+                    table.takeBet(player, new int[] { 1, 0, 0, 0, 0, 0 });
+                    continue;
+                }
 
-        table.addPlayer(new Player("Sheryl J", Constants.STANDARD_BUY_IN));
-        table.dealCards();
-        
-        for (Player player : table.getPlayers()) {
-            System.out.println(player.toString());
-            Card[] cards = player.getHand();
-            System.out.println(cards[0] + " | " + cards[1]);
+                table.takeBet(player, new int[] { 2, 0, 0, 0, 0, 0 });
+            }
+            
+            System.out.println(table.getPot());
+            System.out.println();
+            gameState.getPlayers().forEach(System.out::println);
+            table.getRoleManager().rotateButton();
+            System.out.println();
+            table.givePool(gameState.getPlayers().get(0));
+            gameState.getPlayers().forEach(System.out::println);
+            System.out.println();
+            System.out.println();
+            System.out.println();
         }
-
-        System.out.println("************************************************");
-        System.out.println(table.getPot());
-        System.out.println("************************************************");
-
-        int[] bet = { 1, 1, 1, 1, 1, 1 };
-
-        for (Player player : table.getPlayers()) {
-            player.getHand();
-            table.takeBet(player, bet);
-            System.out.println(player.toString());
-        }
-
-        System.out.println("************************************************");
-        System.out.println(table.getPot());
-        System.out.println("************************************************");
-
-        table.givePool(table.getCurrPlayer());
-
-        System.out.println("************************************************");
-        System.out.println(table.getPot());
-        System.out.println("************************************************");
-
-        for (Player player : table.getPlayers()) {
-            System.out.println(player.toString());
-        }
-
-        table.resetTable();
-
     }
 }

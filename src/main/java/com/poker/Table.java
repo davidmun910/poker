@@ -1,23 +1,18 @@
 package com.poker;
 
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-
 import com.Constants;
 
 public class Table {
-    private int numPlayers;
-    private int currPlayerIdx;
-    private final List<Player> players;
     private final Player mainPot;
-    private final Deck deck; 
+    private final Deck deck;
+    private GameState gameState;
+    private RoleManager roleManager;
 
-    public Table(List<Player> players, Deck deck) {
-        this.numPlayers = players.size();
-        this.currPlayerIdx = ThreadLocalRandom.current().nextInt(0, numPlayers);
-        this.players = players;
+    public Table() {
         this.mainPot = new Player(Constants.MAIN_POT_NAME, Constants.POT_BUY_IN);
-        this.deck = deck;
+        this.deck = new Deck();
+        this.gameState = GameState.getInstance();
+        this.roleManager = new RoleManager();
     }
 
     public void takeBet(Player player, int[] amount) {
@@ -34,31 +29,13 @@ public class Table {
     }
 
     public void dealCards() {
-        for (Player player : players) {
+        for (Player player : gameState.getPlayers()) {
             player.dealIn(deck.dealCard(), deck.dealCard());
         }
     }
 
-    public int addPlayer(Player player) {
-        if (numPlayers >= Constants.MAX_PLAYERS)
-            return -1;
-
-        ++numPlayers;
-        players.add(player);
-
-        return numPlayers;
-    }
-
-    public List<Player> getPlayers() {
-        return this.players;
-    }
-
-    public Player getCurrPlayer() {
-        return players.get(currPlayerIdx);
-    }
-    
-    public void moveToNextPlayer() {
-        currPlayerIdx = (currPlayerIdx + 1) % numPlayers;
+    public RoleManager getRoleManager() {
+        return this.roleManager;
     }
 
     public String getPot() {

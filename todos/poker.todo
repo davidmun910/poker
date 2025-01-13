@@ -1,3 +1,7 @@
-☐ Add a betting system [probably a new class]
-☐ Add a role system [BB, SB, etc]
-☐ 
+✔ Add a betting system [probably a new class] @done(25-01-12 01:52)
+✔ Add a role system [BB, SB, etc] @done(25-01-12 23:43)
+☐ Consider adding a host system
+☐ Add a system where people can redistribute their chips when one of their chip sets is getting low
+☐ Add a system where we can mark the winner
+GameState:
+    ☐ Add a gameState for players that are still in the game
