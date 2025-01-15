@@ -5,10 +5,10 @@ public class PokerApplication {
         Table table = new Table();
         GameState gameState = GameState.getInstance();
 
-        gameState.addPlayer(new Player("Alice", new int[]{10, 5, 2, 1, 0, 0}));
-        gameState.addPlayer(new Player("Bob", new int[]{10, 5, 2, 1, 0, 0}));
-        gameState.addPlayer(new Player("Charlie", new int[]{10, 5, 2, 1, 0, 0}));
-        gameState.addPlayer(new Player("Diana", new int[]{10, 5, 2, 1, 0, 0}));
+        gameState.addPlayer(new Player("Alice", new int[]{10, 5, 2, 1, 0, 1}));
+        gameState.addPlayer(new Player("Bob", new int[]{10, 5, 2, 1, 0, 1}));
+        gameState.addPlayer(new Player("Charlie", new int[]{10, 5, 2, 1, 0, 1}));
+        gameState.addPlayer(new Player("Diana", new int[]{10, 5, 2, 1, 0, 1}));
 
         for (int round = 1; round <= 3; round++) {
             System.out.println("Round " + round);
@@ -16,7 +16,7 @@ public class PokerApplication {
             table.dealCards();
             for (Player player : gameState.getPlayers()) {
                 if (player.getRole() == Role.BIG_BLIND) {
-                    table.takeBet(player, new int[] { 2, 0, 0, 0, 0, 0 });
+                    table.takeBet(player, new int[] { 2, 1, 0, 1, 0, 1 });
                     continue;
                 }
                 if (player.getRole() == Role.SMALL_BLIND) {
@@ -34,6 +34,8 @@ public class PokerApplication {
             System.out.println();
             table.givePool(gameState.getPlayers().get(0));
             gameState.getPlayers().forEach(System.out::println);
+            System.out.println();
+            System.out.println(table.getPot());
             System.out.println();
             System.out.println();
             System.out.println();
