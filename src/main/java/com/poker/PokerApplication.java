@@ -5,22 +5,22 @@ public class PokerApplication {
         Table table = new Table();
         GameState gameState = GameState.getInstance();
 
-        gameState.addPlayer(new Player("Alice", new int[]{10, 5, 2, 1, 0, 1}));
-        gameState.addPlayer(new Player("Bob", new int[]{10, 5, 2, 1, 0, 1}));
-        gameState.addPlayer(new Player("Charlie", new int[]{10, 5, 2, 1, 0, 1}));
-        gameState.addPlayer(new Player("Diana", new int[]{10, 5, 2, 1, 0, 1}));
+        gameState.addPlayer("Alice", new int[]{10, 5, 2, 1, 0, 1});
+        gameState.addPlayer("Bob", new int[]{10, 5, 2, 1, 0, 1});
+        gameState.addPlayer("Charlie", new int[]{10, 5, 2, 1, 0, 1});
+        gameState.addPlayer("Diana", new int[]{10, 5, 2, 1, 0, 1});
 
         for (int round = 1; round <= 3; round++) {
             System.out.println("Round " + round);
             table.getRoleManager().assignRoles();
             table.dealCards();
-            for (Player player : gameState.getPlayers()) {
+            for (Player player : gameState.getAllPlayers()) {
                 if (player.getRole() == Role.BIG_BLIND) {
                     table.takeBet(player, new int[] { 2, 1, 0, 1, 0, 1 });
                     continue;
                 }
                 if (player.getRole() == Role.SMALL_BLIND) {
-                    table.takeBet(player, new int[] { 1, 0, 0, 0, 0, 0 });
+                    gameState.fold(player);
                     continue;
                 }
 
@@ -29,16 +29,17 @@ public class PokerApplication {
             
             System.out.println(table.getPot());
             System.out.println();
-            gameState.getPlayers().forEach(System.out::println);
+            gameState.getActivePlayers().forEach(System.out::println);
             table.getRoleManager().rotateButton();
             System.out.println();
-            table.givePool(gameState.getPlayers().get(0));
-            gameState.getPlayers().forEach(System.out::println);
+            table.givePool(gameState.getPlayerById(0));
+            gameState.getActivePlayers().forEach(System.out::println);
             System.out.println();
             System.out.println(table.getPot());
             System.out.println();
             System.out.println();
             System.out.println();
+            gameState.reset();
         }
     }
 }

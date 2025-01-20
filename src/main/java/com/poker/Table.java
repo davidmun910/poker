@@ -9,7 +9,7 @@ public class Table {
     private RoleManager roleManager;
 
     public Table() {
-        this.mainPot = new Player(Constants.MAIN_POT_NAME, Constants.POT_BUY_IN);
+        this.mainPot = new Player(Constants.MAIN_POT_NAME, -1, Constants.POT_BUY_IN);
         this.deck = new Deck();
         this.gameState = GameState.getInstance();
         this.roleManager = new RoleManager();
@@ -29,7 +29,7 @@ public class Table {
     }
 
     public void dealCards() {
-        for (Player player : gameState.getPlayers()) {
+        for (Player player : gameState.getAllPlayers()) {
             player.dealIn(deck.dealCard(), deck.dealCard());
         }
     }

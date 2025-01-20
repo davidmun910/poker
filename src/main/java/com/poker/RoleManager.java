@@ -10,7 +10,7 @@ public class RoleManager {
     }
 
     public void assignRoles() {
-        List<Player> players = gameState.getPlayers();
+        List<Player> players = gameState.getAllPlayers();
         int buttonIndex = gameState.getButtonIndex();
         int numPlayers = players.size();
 
