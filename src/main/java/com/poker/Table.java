@@ -25,7 +25,7 @@ public class Table {
     }
 
     public void resetTable() {
-        deck.resetCards();
+        deck.shuffleCards();
     }
 
     public void dealCards() {
