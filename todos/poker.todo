@@ -5,4 +5,4 @@
 ☐ Add a system where we can mark the winner
 GameState:
     ✔ Add a gameState for players that are still in the game @done(25-01-19 20:58)
-    ✔ Add a signal to indicate the a player is folded @done(25-01-19 20:58)
+    ✔ Add a signal to indicate the a player is folded @done(25-01-19 20:58)d
