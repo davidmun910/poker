@@ -19,7 +19,7 @@ public class PokerApplication {
                     table.takeBet(player, new int[] { 2, 1, 0, 1, 0, 1 });
                     continue;
                 }
-                if (player.getRole() == Role.SMALL_BLIND) {
+                if (player.getRole() == Role.SMALL_BLIND) { 
                     gameState.fold(player);
                     continue;
                 }
